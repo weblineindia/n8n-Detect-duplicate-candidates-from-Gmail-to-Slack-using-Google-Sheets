@@ -1,100 +1,115 @@
-# Detect duplicate candidates from Gmail to Slack using Google Sheets
 
-This workflow automatically detects duplicate job applicants by checking incoming emails from Gmail against existing records in Google Sheets.  
-If a candidate's email is already found in the sheet, it sends an alert to Slack; otherwise, it adds the candidate to the sheet. :contentReference[oaicite:1]{index=1}
+# Detect Duplicate Candidates from Gmail to Slack Using Google Sheets
+
+This workflow automatically detects duplicate job applicants by checking incoming emails from Gmail against existing records in Google Sheets.
+If a candidate’s email already exists, it sends an alert to Slack; otherwise, it adds the candidate to the sheet.
 
 ---
 
 ## Who’s It For
 
-- HR and recruitment teams processing candidate emails manually
-- Startups or SMEs handling job applications via Gmail
-- Anyone who wants to automate resume collection and deduplication
-- Teams using Slack and Google Workspace :contentReference[oaicite:2]{index=2}
+* HR and recruitment teams processing candidate emails manually
+* Startups or SMEs handling job applications via Gmail
+* Anyone looking to automate resume collection and deduplication
+* Teams using Slack and Google Workspace
 
 ---
 
 ## How It Works
 
-1. Triggers every few minutes via the **Schedule Trigger** node
-2. Fetches recent emails labeled _applicant_ from Gmail
+1. Triggers at a fixed interval using the **Schedule Trigger** node
+2. Fetches recent emails labeled `applicant` from Gmail
 3. Extracts candidate details from the email body using regex
-4. Reads all existing rows from the Google Sheet
-5. Compares the candidate’s email with existing entries
+4. Reads existing candidate records from Google Sheets
+5. Compares the incoming candidate email with existing entries
 6. If duplicate → Sends a Slack alert
-7. If new → Appends to the Google Sheet :contentReference[oaicite:3]{index=3}
+7. If new → Appends the candidate to Google Sheets
 
 ---
 
 ## How to Set Up
 
-1. Label candidate emails in Gmail with a label like `applicant`
+1. Label candidate emails in Gmail with a label such as `applicant`
 2. Connect **Gmail**, **Google Sheets**, and **Slack** credentials in n8n
-3. Create a **Google Sheet** with these columns:
-   - `candidate_name`, `candidate_email`, `candidate_phone`
-   - `role_applied`, `years_of_experience`, `recruiter`
-   - `resume_url`, `source_email`
-4. Import the workflow JSON
+3. Create a **Google Sheet** with the following columns:
+
+   * `candidate_name`
+   * `candidate_email`
+   * `candidate_phone`
+   * `role_applied`
+   * `years_of_experience`
+   * `recruiter`
+   * `resume_url`
+   * `source_email`
+4. Import the workflow JSON into n8n
 5. Update:
-   - Gmail label ID
-   - Google Sheet ID
-   - Slack channel or user
-6. Activate the workflow :contentReference[oaicite:4]{index=4}
+
+   * Gmail label ID
+   * Google Sheet ID and tab name
+   * Slack channel or user
+6. Activate the workflow
 
 ---
 
 ## Requirements
 
-- n8n (self-hosted or cloud)
-- Gmail account with access to labeled application emails
-- Google Sheet to store candidates
-- Slack account with `chat:write` scope
-- Basic regex familiarity (optional) :contentReference[oaicite:5]{index=5}
+* n8n (cloud or self-hosted)
+* Gmail account with labeled application emails
+* Google Sheet for candidate storage
+* Slack account with `chat:write` permission
+* Basic regex knowledge (optional)
 
 ---
 
 ## How to Customize
 
-- Change comparison logic to include phone numbers
-- Add fallback logic to check for similar names
-- Add filters for roles or experience levels
-- Forward resumes to Google Drive or Notion
-- Trigger an approval flow for screened candidates :contentReference[oaicite:6]{index=6}
+* Extend comparison logic to include phone numbers
+* Add fuzzy matching for similar candidate names
+* Filter candidates by role or experience level
+* Upload resume attachments to Google Drive or Notion
+* Add approval or screening flows for shortlisted candidates
 
 ---
 
 ## Add-Ons
 
-- **Google Drive:** Upload parsed resumes
-- **Notion / Airtable:** Store structured candidate records
-- **Webhooks:** Forward to ATS or CRM
-- **PDF parsers:** Extract data from resume attachments :contentReference[oaicite:7]{index=7}
+* **Google Drive** – Upload and store parsed resumes
+* **Notion / Airtable** – Maintain structured candidate databases
+* **Webhooks** – Forward candidates to ATS or CRM systems
+* **PDF Parsers** – Extract structured data from resume attachments
 
 ---
 
 ## Use Case Examples
 
-| Use Case                 | Description                                           |
-| ------------------------ | ----------------------------------------------------- | ------------------------------------- |
-| **Resume deduplication** | Avoid processing the same applicant twice             |
-| **Auto Slack alert**     | Instantly notify recruiter of repeat candidates       |
-| **Centralized tracking** | Keep candidate records in Sheets for filtering/export |
-| **Passive sourcing**     | Run hourly checks on labeled Gmail inboxes            | :contentReference[oaicite:8]{index=8} |
+| Use Case             | Description                                        |
+| -------------------- | -------------------------------------------------- |
+| Resume deduplication | Avoid processing the same applicant multiple times |
+| Auto Slack alert     | Instantly notify recruiters of repeat candidates   |
+| Centralized tracking | Maintain candidate records in Google Sheets        |
+| Passive sourcing     | Run scheduled checks on labeled Gmail inboxes      |
 
 ---
 
 ## Common Troubleshooting
 
-| Issue                    | Possible Cause                             | Solution                                                       |
-| ------------------------ | ------------------------------------------ | -------------------------------------------------------------- | ------------------------------------- |
-| Slack message not sent   | Invalid Slack token / channel not selected | Reauthorize Slack connection and select correct user/channel   |
-| Google Sheet not updated | Sheet ID or tab name is incorrect          | Double-check the Sheet URL and worksheet tab                   |
-| Email data not extracted | Email body format doesn’t match regex      | Adjust regex in the Code node                                  |
-| Nothing happens          | Gmail label or date filter is too strict   | Ensure emails exist with the right label in the last X minutes | :contentReference[oaicite:9]{index=9} |
+| Issue                    | Possible Cause                              | Solution                                                   |
+| ------------------------ | ------------------------------------------- | ---------------------------------------------------------- |
+| Slack message not sent   | Invalid Slack token or channel not selected | Reauthorize Slack and select the correct channel or user   |
+| Google Sheet not updated | Incorrect Sheet ID or tab name              | Verify the Google Sheet URL and worksheet tab              |
+| Email data not extracted | Regex does not match email body             | Update regex logic in the Code node                        |
+| Workflow not running     | Gmail label or time filter too strict       | Ensure labeled emails exist within the trigger time window |
 
 ---
 
 ## Need Help?
 
-Need help setting it up or tweaking regex for your custom email format? We’re happy to help — just ask!  
-Want advanced modifications like phone number duplication checks or auto-resume upload to Google Drive? Our automation team can guide you step-by-step. :contentReference[oaicite:10]{index=10}
+Need help setting this up or adjusting regex for your custom email format? We’re happy to help.
+
+Looking for advanced enhancements like:
+
+* Phone number duplication checks
+* Auto-upload resumes to Google Drive
+* ATS or CRM integrations
+
+Our automation experts can guide you step by step 👍
