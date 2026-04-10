@@ -53,7 +53,7 @@ If a candidate’s email already exists, it sends an alert to Slack; otherwise, 
 
 ## Requirements
 
-* n8n (cloud or self-hosted)
+* [n8n account](https://n8n.partnerlinks.io/om1efg2qgvwi) (cloud or self-hosted)
 * Gmail account with labeled application emails
 * Google Sheet for candidate storage
 * Slack account with `chat:write` permission
